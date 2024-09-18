@@ -24,6 +24,7 @@ Initialize rosdep
 Environment Setup (There could be a chance that it doesn't work but it won't hinder things you can instead just continue to source manually)
 
 `echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc`
+
 `source ~/.bashrc`
 
 Install and Build ROS Dependencies
