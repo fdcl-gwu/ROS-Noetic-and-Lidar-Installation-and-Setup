@@ -2,13 +2,10 @@
 
 ## First, ensure you have the required driver packages installed along with ROS Noetic. The urg_node package is commonly used for Hokuyo LiDARs in our case the Hokuyo UST-10LX.
 
-Enter the following code into a blank terminal for ROS Noetic Installation
-
-`sudo apt-get install ros-noetic-urg-node`
-
 Add ROS Key
 
 `sudo apt install curl`
+
 `curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -`
 
 Update Package Index 
@@ -78,7 +75,7 @@ Assign a Static IP Address to Your computer (Not the default address of the Lida
 
 Disable Network Manager if needs
 
-`sudo nmcli dev set enp3s0 managed no`
+`sudo nmcli dev set eth0 managed no`
 
 Check the Lidar connectivity default address is 192.168.0.10
 
@@ -92,10 +89,6 @@ Ensure that the required driver packages are installed
 
 `sudo apt-get update`
 `sudo apt-get install ros-noetic-urg-node`
-
-Starting the driver via ethernet port
-
-`roslaunch urg_node urg_node.launch ip_address:=192.168.0.10 ip_port:=10940`
 
 
 
@@ -122,10 +115,6 @@ Activates Network interface
 
 
 
-## Once done you can retry and run urg_node now that correct configuration is there
-
-`rosrun urg_node urg_node _ip_address:=192.168.0.10`
-
 ## Once packages are downloaded you should be able to run it like listed below
 
 # Terminal 1
@@ -144,7 +133,38 @@ Activates Network interface
 # Terminal 3
 
 `source /opt/ros/noetic/setup.bash`
-`source -/catkin_ws/devel/setup.bash`
+`source ~/catkin_ws/devel/setup.bash`
 `rosrun urg_node urg_node _ip_address:=192.168.0.10`
 
+# Terminal 4 
 
+You should now see a /scan meaning that the lidar is now reading data by going into:
+
+`Rostopic List`
+
+To see the data
+
+`rostopic echo /scan`
+
+# Terminal 5
+
+Using Rviz 
+
+`rviz`
+
+Now from here you will see a blank plot meaning we need to set it up. 
+Set Fixed Frame: In the "Global Options," set the Fixed Frame to laser or base_scan (check the frame_id in the /scan topic messages).
+
+If either one of those options do not work you can check the frame_id yourself by using the command below.
+You will see the data paused so scroll all the way up and look for frame_id and whatever goes after it substitute that for your "Global Options"
+
+`rostopic echo /scan -n1`
+
+# Add LaserScan Display:
+
+Click on "Add."
+Select "By topic" and choose /scan.
+Alternatively, select "LaserScan" from the display types and set the topic to /scan.
+View the LiDAR Data:
+
+You should now see the LiDAR scan displayed in RViz.
