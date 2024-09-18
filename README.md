@@ -19,6 +19,7 @@ Install ROS Noetic Desktop Full, (Includes every feature of noetic including GUI
 Initialize rosdep
 
 `sudo rosdep init`
+
 `rosdep update`
 
 Environment Setup (There could be a chance that it doesn't work but it won't hinder things you can instead just continue to source manually)
@@ -54,11 +55,13 @@ Create Workspace Directory
 Build the Workspace (If using githubs make sure that all files can be built by catkin if not it won't build and you'll get an error)
 
 `cd ~/catkin_ws`
+
 `catkin_make`
 
 Source the Workspace (This may not work so you can source the workspace manually as you'll see later on)
 
 `echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc`
+
 `source ~/.bashrc`
 
 
@@ -72,6 +75,7 @@ Identify your ethernet Interface (Look for interfaces like eth0 and enp3s0 in ou
 Assign a Static IP Address to Your computer (Not the default address of the Lidar but very similar)
 
 `sudo ip addr add 192.168.0.1/24 dev eth0`
+
 `sudo ip link set eth0 up`
 
 Disable Network Manager if needs
@@ -89,6 +93,7 @@ Check the Lidar connectivity default address is 192.168.0.10
 Ensure that the required driver packages are installed
 
 `sudo apt-get update`
+
 `sudo apt-get install ros-noetic-urg-node`
 
 
@@ -112,6 +117,7 @@ Activates Network interface
 ## Confirming Lidars IP Address
 
 `sudo apt install nmap`
+
 `sudo nmap -sn 192.168.0.0/24`
 
 
@@ -121,20 +127,27 @@ Activates Network interface
 # Terminal 1
 
 `sudo ip addr flush dev eth0`
+
 `sudo ip addr add 192.168.0.1/24 dev eth0`
+
 `sudo ip link set eth0 up`
+
 `sudo nmcli dev set eth0 managed no`
+
 `ping 192.168.0.10`
 
 # Terminal 2
 
 `source /opt/ros/noetic/setup.bash`
+
 `roscore`
 
 # Terminal 3
 
 `source /opt/ros/noetic/setup.bash`
+
 `source ~/catkin_ws/devel/setup.bash`
+
 `rosrun urg_node urg_node _ip_address:=192.168.0.10`
 
 # Terminal 4 
